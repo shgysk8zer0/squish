@@ -1,6 +1,6 @@
 import '@shgysk8zer0/polyfills';
 import { describe, test } from 'node:test';
-import { ok, strictEqual } from 'node:assert';
+import { ok, rejects, strictEqual } from 'node:assert';
 import { readFile } from 'node:fs/promises';
 import { gzip, gunzip, deflate, inflate } from './squish.js';
 
@@ -65,5 +65,10 @@ describe('Test compression and decompression', async () => {
 		const compressed = await deflate(file);
 
 		strictEqual(await inflate(compressed, { output: 'text' }), text, 'Decompression should result in the original content.');
+	});
+
+	test('Verify correct errors are thrown', async () => {
+		rejects(() => gzip(9), 'Non string/objects should reject.');
+		rejects(() => gzip([9]), 'Invalid object types should reject.');
 	});
 });

@@ -28,11 +28,11 @@ Tiny JS compression/decompression library using [`CompressionStream`](https://de
 - [Contributing](./.github/CONTRIBUTING.md)
 <!-- - [Security Policy](./.github/SECURITY.md) -->
 
-# Efficient Data Compression and Decompression
+## Efficient Data Compression and Decompression
 
 Squish is a tiny JavaScript library that provides functionalities for efficient data compression and decompression. It supports various input and output formats, making it a versatile tool for optimizing data transmission and storage.
 
-**Features:**
+## Features
 
 * **Highly Compressed:** The library itself is minified and compressed to an exceptionally small size, minimizing its footprint in your project.
 * **Versatile Input:** Accepts a wide range of input data types, including `ReadableStream`, `ArrayBuffer`, `Uint8Array`, `Blob`, `Response`, `Request`, and even strings.
@@ -40,7 +40,7 @@ Squish is a tiny JavaScript library that provides functionalities for efficient 
 * **Decompression:** Decompresses data compressed with `gzip` and `deflate` algorithms.
 * **Rich Output Formats:** Offers a variety of output formats, including `blob`, `stream`, `response`, `buffer`, `bytes`, `hex`, `base64`, `base64url`, `url`, and `text`.
 
-**Installation:**
+## Installation
 
 You can install the library using npm or by importing from a CDN such as `unpkg.com`:
 

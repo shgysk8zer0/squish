@@ -1,25 +1,18 @@
-import nodeResolve from '@rollup/plugin-node-resolve';
 import terser from '@rollup/plugin-terser';
 
 export default [{
-	input: 'index.js',
-	plugins: [nodeResolve()],
+	input: 'squish.js',
 	output: [{
-		file: 'index.cjs',
-		format: 'cjs',
-	}, {
-		file: 'index.min.js',
-		format: 'iife',
+		file: 'squish.min.js',
+		format: 'module',
 		plugins: [terser()],
 		sourcemap: true,
-	}, {
-		file: 'index.mjs',
-		format: 'module',
 	}],
 }, {
-	input: 'consts.js',
-	output: {
-		file: 'consts.cjs',
+	input: 'node.js',
+	external: ['@shgysk8zer0/polyfills'],
+	output: [{
+		file: 'squish.cjs',
 		format: 'cjs',
-	}
+	}],
 }];

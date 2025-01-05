@@ -6,7 +6,7 @@ export const DEFAULT_FORMAT = GZIP;
 /**
  * Converts a `ReadableStream`, `ArrayBuffer`, `Uint8Array`, or `Blob` into a `ReadableStream`.
  *
- * @param {ReadableStream|ArrayBuffer|Buffer|Uint8Array|Blob|Request|Response|string} input - The input to convert.
+ * @param {ReadableStream|ArrayBuffer|Uint8Array|Blob|Request|Response|string} input - The input to convert.
  * @returns {ReadableStream} A `ReadableStream` representation of the input.
  * @throws {TypeError} If the input is not a `ReadableStream`, `ArrayBuffer`, `Uint8Array`, or `Blob`.
  */
@@ -35,9 +35,6 @@ function _convert(input) {
 		return input.stream();
 	} else if ((input instanceof Response || input instanceof Request) && input.body instanceof ReadableStream) {
 		return input.body;
-	} else if (input?.buffer instanceof ArrayBuffer) {
-		// No infinite loops since check for `ArrayBuffer` was already done
-		return _convert(input.buffer);
 	} else {
 		throw new TypeError('Unsupported input type.');
 	}
@@ -46,8 +43,8 @@ function _convert(input) {
 /**
  * Shared stream utility function
  *
- * @param {string} method
- * @param {ReadableStream|ArrayBuffer|Buffer|Uint8Array|Blob|Request|Response|string} data
+ * @param {"compress"|"decompress"} method
+ * @param {ReadableStream|ArrayBuffer|Uint8Array|Blob|Request|Response|string} data
  * @param {object} [options]
  * @param {string} [options.output="blob"]
  * @param {AbortSignal} [options.signal]
@@ -86,7 +83,7 @@ async function _transform(method, data, {
 /**
  * Compresses the given data using the given algorithm.
  *
- * @param {ReadableStream|ArrayBuffer|Buffer|Uint8Array|Blob|Request|Response|string} data - The data to be compressed.
+ * @param {ReadableStream|ArrayBuffer|Uint8Array|Blob|Request|Response|string} data - The data to be compressed.
  * @param {Object} [options] - Optional compression options.
  * @param {'blob'|'stream'|'response'|'buffer'|'bytes'|'hex'|'base64'|'base64url'|'url'|'text'} [options.output='blob'] - Output format.
  * @param {'gzip'|'deflate'} [options.format] An allowed compression format.
@@ -100,7 +97,7 @@ export async function compress(data, { output = 'blob', format = DEFAULT_FORMAT,
 /**
  * Decompresses the given data using the given algorithm.
  *
- * @param {ReadableStream|ArrayBuffer|Buffer|Uint8Array|Blob|Request|Response|string} data - The data to be decompressed.
+ * @param {ReadableStream|ArrayBuffer|Uint8Array|Blob|Request|Response|string} data - The data to be decompressed.
  * @param {Object} [options] - Optional decompression options.
  * @param {'blob'|'stream'|'response'|'buffer'|'bytes'|'hex'|'base64'|'base64url'|'url'|'text'} [options.output='blob'] - Output format.
  * @param {'gzip'|'deflate'} [options.format] An allowed compression format.
@@ -114,7 +111,7 @@ export function decompress(data, { output, format = DEFAULT_FORMAT, signal } = {
 /**
  * Compresses the given data using the gzip algorithm.
  *
- * @param {ReadableStream|ArrayBuffer|Buffer|Uint8Array|Blob|Request|Response|string} data - The data to be compressed.
+ * @param {ReadableStream|ArrayBuffer|Uint8Array|Blob|Request|Response|string} data - The data to be compressed.
  * @param {Object} [options] - Optional compression options.
  * @param {'blob'|'stream'|'response'|'buffer'|'bytes'|'hex'|'base64'|'base64url'|'url'|'text'} [options.output='blob'] - Output format.
  * @param {AbortSignal} [options.signal] - Signal to abort compression.
@@ -127,7 +124,7 @@ export async function gzip(data, { output = 'blob', signal } = {}) {
 /**
  * Decompresses the given data using the gzip algorithm.
  *
- * @param {ReadableStream|ArrayBuffer|Buffer|Uint8Array|Blob|Request|Response|string} data - The data to be decompressed.
+ * @param {ReadableStream|ArrayBuffer|Uint8Array|Blob|Request|Response|string} data - The data to be decompressed.
  * @param {Object} [options] - Optional decompression options.
  * @param {'blob'|'stream'|'response'|'buffer'|'bytes'|'hex'|'base64'|'base64url'|'url'|'text'} [options.output='blob'] - Output format.
  * @param {AbortSignal} [options.signal] - Signal to abort decompression.
@@ -140,7 +137,7 @@ export function gunzip(data, { output, signal } = {}) {
 /**
  * Compresses the given data using the DEFLATE algorithm.
  *
- * @param {ReadableStream|ArrayBuffer|Buffer|Uint8Array|Blob|Request|Response|string} data - The data to be compressed.
+ * @param {ReadableStream|ArrayBuffer|Uint8Array|Blob|Request|Response|string} data - The data to be compressed.
  * @param {Object} [options] - Optional compression options.
  * @param {'blob'|'stream'|'response'|'buffer'|'bytes'|'hex'|'base64'|'base64url'|'url'|'text'} [options.output='blob'] - Output format.
  * @param {AbortSignal} [options.signal] - Signal to abort compression.
@@ -153,7 +150,7 @@ export async function deflate(data, { output = 'blob', signal } = {}) {
 /**
  * Decompresses the given data using the DEFLATE algorithm.
  *
- * @param {ReadableStream|ArrayBuffer|Buffer|Uint8Array|Blob|Request|Response|string} data - The data to be decompressed.
+ * @param {ReadableStream|ArrayBuffer|Uint8Array|Blob|Request|Response|string} data - The data to be decompressed.
  * @param {Object} [options] - Optional decompression options.
  * @param {'blob'|'stream'|'response'|'buffer'|'bytes'|'hex'|'base64'|'base64url'|'url'|'text'} [options.output='blob'] - Output format.
  * @param {AbortSignal} [options.signal] - Signal to abort decompression.

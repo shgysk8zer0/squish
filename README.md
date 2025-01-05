@@ -60,7 +60,7 @@ or with a `<script type="importmap">`
 ```
 
 
-## Usage:
+## Usage
 
 The library provides several functions for compression and decompression:
 

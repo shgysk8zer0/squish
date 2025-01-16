@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [v1.0.2] - 2025-01-16
+
+### Added
+- Add support for `ReadableStream`s
+- Add functions for `"deflate-raw"` format compression/decompression
+
+### Fixed
+- Misc documentation fixes
+
 ## [v1.0.1] - 2025-01-04
 
 ### Fixed

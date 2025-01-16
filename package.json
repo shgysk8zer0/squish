@@ -1,6 +1,6 @@
 {
   "name": "@shgysk8zer0/squish",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Tiny JS compression/decompression library using `CompressionStream`s",
   "keywords": [
     "compress",
